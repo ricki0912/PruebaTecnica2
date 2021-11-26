@@ -36,12 +36,13 @@ class GenPDFController extends Controller
         $this->fpdf->Image($foto,160,65,30);
 
         $fotoFirma=storage_path('app/public/firma.png');
-        $this->fpdf->Image($fotoFirma,135,227,50);
+        $this->fpdf->Image($fotoFirma,130,225,55);
 
 
         //$this->fpdf->Image('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png',15,12,18);
 
         //$this->fpdf->SetTopMargin(25);
+        
         
         $this->fpdf->SetFont('Arial','B',11);
 
@@ -53,12 +54,12 @@ class GenPDFController extends Controller
 
         $this->fpdf->MultiCell(0, 6 , utf8_decode("DIRECCIÓN DE ADMISIÓN"), 0,'C');   
 
-        $this->fpdf->Ln();
+     
         $this->fpdf->MultiCell(0, 6 , utf8_decode("PROCESO DE ADMISIÓN: EXAMEN EXTRAORDINARIO 2022 I"), 0,'C');  
         
-        $this->fpdf->Ln();
-        $this->fpdf->SetFont('Arial','U',18);
-        $this->fpdf->SetXY(10, 43);
+     
+        $this->fpdf->SetFont('Arial','B',18);
+        $this->fpdf->SetXY(10, 40);
 
         $this->fpdf->MultiCell(0, 9 , utf8_decode("FICHA DE INSCRIPCIÓN"), 0,'C');   
         
@@ -101,7 +102,7 @@ class GenPDFController extends Controller
         $this->fpdf->SetLineWidth(.3);
         $this->fpdf->SetFont('','B');
         $this->fpdf->SetXY(10, 55);
-        $this->fpdf->Cell(190, 6, 'DATOS PERSONALES',1,0,'C',1);
+        $this->fpdf->Cell(190, 6, '1. DATOS PERSONALES',1,0,'C',1);
 
         
            $this->fpdf->Ln();
@@ -117,15 +118,18 @@ class GenPDFController extends Controller
 
         $this->fpdf->Ln();
 
-         $this->fpdf->Cell(90, 6, utf8_decode('DATOS PROCEDENCIA'),1,0,'C',1);
+         $this->fpdf->Cell(90, 6, utf8_decode('2. DATOS PROCEDENCIA'),1,0,'C',1);
          $this->fpdf->SetFillColor(255,255,255);
          $this->fpdf->SetDrawColor(255,255,255);
 
         $this->fpdf->Cell(10, 6, '',1,0,'C',1);
         $this->fpdf->SetFillColor(0,143,57);
         $this->fpdf->SetDrawColor(255,233,0);
-        $this->fpdf->Cell(90, 6, 'DATOS DEL COLEGIO',1,0,'C',1);
+            $this->fpdf->Cell(90, 6, '3. DATOS DEL COLEGIO',1,0,'C',1);
      
+            $this->fpdf->SetXY(10, 165  );
+
+            $this->fpdf->Cell(190, 6, utf8_decode('4. DECLARACIÓN JURADA'),1,0,'C',1);
 
 
         $this->fpdf->SetFillColor(255,255,255);
@@ -181,12 +185,10 @@ class GenPDFController extends Controller
         
 
         
-        $this->fpdf->SetXY(10, 160);
-        $this->fpdf->SetFont('Arial','U',10);
-        $this->fpdf->MultiCell(190, 6 , utf8_decode("DECLARACIÓN JURADA"), 0,'C');   
+        $this->fpdf->SetXY(10, 172);
         $this->fpdf->SetFont('Arial','',9);
 
-    $this->fpdf->MultiCell(190, 6, utf8_decode("Declaro bajo juramento que información registrada al momento de inscribirme es verdadera y de mi entera responsabilidad. 
+    $this->fpdf->MultiCell(190, 5, utf8_decode("Declaro bajo juramento que información registrada al momento de inscribirme es verdadera y de mi entera responsabilidad. 
 La fotografía registrada es actual.
 En caso de faltar a la verdad perderé mis derechos de postulante sometiéndome a las sanciones reglamentarias y legales que correspondan.
 Conozco y acepto todas las disposiciones del Reglamento General de Admisión al cual me someto.
@@ -199,17 +201,32 @@ Presentarse con la ficha de inscripción en el local que le corresponde rendir s
 
 
 
-    $this->fpdf->SetXY(110, 254     );
+    $this->fpdf->SetXY(120, 260     );
     $this->fpdf->SetFont('Arial','',8);
 
-$this->fpdf->MultiCell(250, 6, utf8_decode("¡No debe firmar ni colocar su impresión dactilar (huella digital) 
-    en el carné de postulante-declaración jurada! 
+$this->fpdf->MultiCell(270, 4, utf8_decode("¡No debe firmar ni colocar su impresión dactilar (huella digital) 
+en el carné de postulante-declaración jurada! 
 La firma e impresión dactilar se harán el día del examen en el
 aula y en presencia del docente responsable.
 "));
  
-        $this->fpdf->Output();
-        exit;
+
+$this->fpdf->Text(45, 247, utf8_decode("-------------------------------------------"));
+
+$this->fpdf->Text(48, 250, utf8_decode("FIRMA DEL POSTULANTE"));
+$this->fpdf->Text(45, 272, utf8_decode("-------------------------------------------"));
+
+$this->fpdf->Text(50, 275, utf8_decode("FIRMA DEL DOCENTE"));
+
+$this->fpdf->Rect(50 ,250, 50, 10);
+
+
+$this->fpdf->Output();
+
+
+exit;
+
+
     }
 
 }
